@@ -1,0 +1,14 @@
+# Xcode & Swift
+build/
+DerivedData/
+.swiftpm/
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+
+# macOS
+.DS_Store
+
+# Exclude large CoreML models
+*.mlpackage
+*.mlmodel
