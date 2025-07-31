@@ -1,4 +1,4 @@
-# 📸 MomentStudio
+# 📸 MomentStudio (in LinkedSpace Function)
 
 **MomentStudio** is an intelligent iOS photo album application that automatically groups your photos into memorable trips and moments. Using the power of Core ML's CLIP model and location-based clustering, it transforms your photo library into a structured and engaging travel diary.
 
