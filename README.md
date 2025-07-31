@@ -75,18 +75,67 @@ To run this project, you will need to configure your own API keys.
     git clone https://github.com/ssum21/LinkedSpace_MomentStudio.git
     ```
 
-2.  **Configure API Key:**
-    -   Obtain a **Google Places API** key from the [Google Cloud Platform](https://console.cloud.google.com/). Make sure the "Places API" is enabled for your project and a billing account is linked.
-    -   In the Xcode project, open the `Info.plist` file.
-    -   Add a new key named `GOOGLE_API_KEY`.
-    -   Paste your API key as the value for this key.
+## 🛠️ Setup Instructions
 
-3.  **Build and Run:**
-    -   Open `MomentStudio.xcodeproj` in Xcode.
-    -   Select your target device (a physical device is recommended).
-    -   Run the app (`Cmd + R`).
+To build and run this project, you will need to perform a few manual setup steps to include the required machine learning models and API keys, which are not checked into the Git repository.
 
-The first time you navigate to the "Trips" or "Capture" tabs, the app will ask for permission to access your photo library and camera.
+### Prerequisites
+
+- macOS with Xcode 15 or later
+- A Google Cloud Platform account with the **Places API** enabled.
+
+### Step 1: Clone the Repository
+
+First, clone the repository to your local machine.
+
+```bash
+git clone https://github.com/ssum21/LinkedSpace_MomentStudio.git
+cd LinkedSpace_MomentStudio
+```
+
+### Step 2: Download the Core ML Models
+
+This project relies on large Core ML model files (`.mlpackage`) that are excluded from this repository. You need to download them from the original Apple `ml-mobileclip` repository and place them in the correct directory.
+
+1.  Navigate to the official Apple MobileCLIP repository: [https://github.com/apple/ml-mobileclip](https://github.com/apple/ml-mobileclip)
+2.  Download the following model packages:
+    - `mobileclip_s2_image.mlpackage`
+    - `mobileclip_s2_text.mlpackage`
+3.  Place these two downloaded `.mlpackage` folders inside the **`MomentStudio/Core/`** directory in your local project.
+
+After this step, your `MomentStudio/Core/` directory should look like this in the Xcode project navigator:
+
+```
+└── Core/
+    ├── AsyncFactory.swift
+    ├── CameraController.swift
+    ├── mobileclip_s2_image.mlpackage  <-- ADDED
+    ├── mobileclip_s2_text.mlpackage   <-- ADDED
+    └── Models.swift
+```
+
+### Step 3: Configure Environment Variables (Google API Key)
+
+The app uses the Google Places API to fetch information about nearby locations. You must provide your own API key.
+
+1.  In Xcode, right-click on the `MomentStudio` group (the root folder) and select **New File...**.
+2.  Choose the **Property List** template and click Next.
+3.  Name the file **`secrets.plist`** and make sure it is added to the `MomentStudio` target.
+4.  Open the newly created `secrets.plist` file and add a new row with the following information:
+    - **Key:** `GOOGLE_API_KEY`
+    - **Type:** `String`
+    - **Value:** `Your_Actual_Google_Places_API_Key`
+
+The contents of your `secrets.plist` file should look like this:
+
+
+
+> **Important:** The `.gitignore` file is configured to ignore `secrets.plist`, so your private key will not be accidentally committed to the repository.
+
+### Step 4: Build and Run
+
+You are all set! Open `MomentStudio.xcodeproj` in Xcode and build and run the project on a simulator or a physical device. The app should now compile and run successfully.
+
 
 ---
 
